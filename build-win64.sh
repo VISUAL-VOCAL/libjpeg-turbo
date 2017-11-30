@@ -30,4 +30,5 @@ mkdir --parents ${BUILD_DIRECTORY}
 cd ${BUILD_DIRECTORY}
 sh ${SOURCE_DIRECTORY}/configure --host=${TARGET_HOST} $*
 make
+make install-strip
 
