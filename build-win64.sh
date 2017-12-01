@@ -28,7 +28,11 @@ cd ${SOURCE_DIRECTORY}
 autoreconf -fiv
 mkdir --parents ${BUILD_DIRECTORY}
 cd ${BUILD_DIRECTORY}
-sh ${SOURCE_DIRECTORY}/configure --host=${TARGET_HOST} $*
+sh ${SOURCE_DIRECTORY}/configure \
+  --host=${TARGET_HOST} \
+  --prefix=${BUILD_DIRECTORY}/install \
+  $*
+
 make
 make install-strip
 
