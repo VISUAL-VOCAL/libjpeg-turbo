@@ -1,5 +1,5 @@
 lib_LTLIBRARIES = libjpeg.la
-libjpeg_la_LDFLAGS = -version-info ${LIBTOOL_CURRENT}:${SO_MINOR_VERSION}:${SO_AGE} -no-undefine -avoid-version
+libjpeg_la_LDFLAGS = -version-info ${LIBTOOL_CURRENT}:${SO_MINOR_VERSION}:${SO_AGE} -no-undefined -avoid-version
 include_HEADERS = jerror.h jmorecfg.h jpeglib.h
 
 if WITH_TURBOJPEG
