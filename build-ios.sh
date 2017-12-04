@@ -34,7 +34,7 @@ cd ${BUILD_DIRECTORY}
 sh ${SOURCE_DIRECTORY}/configure \
   --host=${host_alias} \
   --prefix=${BUILD_DIRECTORY}/install \
-  --enable-static --disable-shared
+  --enable-static --disable-shared \
   $*
 
 make
@@ -58,7 +58,7 @@ cd ${BUILD_DIRECTORY}
 sh ${SOURCE_DIRECTORY}/configure \
   --host=${host_alias} \
   --prefix=${BUILD_DIRECTORY}/install \
-  --enable-static --disable-shared
+  --enable-static --disable-shared \
   $*
 
 make
@@ -81,7 +81,7 @@ cd ${BUILD_DIRECTORY}
 sh ${SOURCE_DIRECTORY}/configure \
   --host=${host_alias} \
   --prefix=${BUILD_DIRECTORY}/install \
-  --enable-static --disable-shared
+  --enable-static --disable-shared \
   $*
 
 make
