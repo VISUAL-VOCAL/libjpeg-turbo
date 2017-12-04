@@ -6,7 +6,7 @@ PWD=`pwd`
 SOURCE_DIRECTORY="${PWD}"
 BUILD_DIRECTORY="${SOURCE_DIRECTORY}/output/osx"
 
-TARGET_HOST="x86_64-app-darwin"
+TARGET_HOST="x86_64-apple-darwin"
 
 export NASM=/usr/local/bin/nasm
 
