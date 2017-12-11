@@ -16,7 +16,7 @@ ANDROID_VERSION="19"
 
 # It should not be necessary to modify the rest
 TARGET_HOST=arm-linux-androideabi
-ANDROID_CFLAGS="-march=armv7-a -mfloat-abi=softfp -fprefetch-loop-arrays --sysroot=${SYSROOT} -D__ANDROID_API__=${ANDROID_VERSION}"
+ANDROID_CFLAGS="-fvisibility=hidden -march=armv7-a -mfloat-abi=softfp -fprefetch-loop-arrays --sysroot=${SYSROOT} -D__ANDROID_API__=${ANDROID_VERSION}"
 
 ANDROID_INCLUDES="-I${SYSROOT}/usr/include -I${TOOLCHAIN}/lib/gcc/${TARGET_HOST}/${TOOLCHAIN_VERSION}.x/include -I${TOOLCHAIN}/prebuilt_include/clang/include"
 
@@ -37,11 +37,11 @@ export NDK=${NDK_PATH}
 export ANDROID_NDK_ROOT=${NDK_PATH}
 export SYSROOT=${SYSROOT}
 
-export CFLAGS="${ANDROID_INCLUDES} ${ANDROID_CFLAGS} -O3 -fPIE"
-export CXXFLAGS="${ANDROID_INCLUDES} ${ANDROID_CFLAGS} -O3 -fPIE"
+export CFLAGS="${ANDROID_INCLUDES} ${ANDROID_CFLAGS} -O3 -fPIC -pie"
+export CXXFLAGS="${ANDROID_INCLUDES} ${ANDROID_CFLAGS} -O3 -fPIC -pie"
 export CPPFLAGS="${ANDROID_INCLUDES} ${ANDROID_CFLAGS}"
 export ASFLAGS="${ANDROID_CFLAGS}"
-export LDFLAGS="${ANDROID_CFLAGS} -pie"
+export LDFLAGS="${ANDROID_CFLAGS} -fPIC -pie"
 
 cd ${SOURCE_DIRECTORY}
 autoreconf -fiv
@@ -50,6 +50,7 @@ cd ${BUILD_DIRECTORY}
 sh ${SOURCE_DIRECTORY}/configure \
   --host=${TARGET_HOST} \
   --prefix=${BUILD_DIRECTORY}/install \
+  --enable-static --disable-shared \
   CFLAGS="${CFLAGS}" \
   CPPFLAGS="${CPPFLAGS}" \
   LDFLAGS="${LDFLAGS}" \
