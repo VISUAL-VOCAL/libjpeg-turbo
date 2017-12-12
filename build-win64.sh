@@ -8,6 +8,12 @@ BUILD_DIRECTORY="${SOURCE_DIRECTORY}/output/win64"
 
 TARGET_HOST="x86_64-pc-mingw32"
 
+export CFLAGS="-fvisibility=hidden"
+export CXXFLAGS=${CFLAGS}
+export CPPFLAGS=${CFLAGS}
+export ASFLAGS=${CFLAGS}
+export LDFLAGS=${CFLAGS}
+
 export CC="x86_64-w64-mingw32-gcc"
 export CXX="x86_64-w64-mingw32-g++"
 export AR="x86_64-w64-mingw32-ar"
@@ -31,6 +37,7 @@ cd ${BUILD_DIRECTORY}
 sh ${SOURCE_DIRECTORY}/configure \
   --host=${TARGET_HOST} \
   --prefix=${BUILD_DIRECTORY}/install \
+  --enable-static --disable-shared \
   $*
 
 make
