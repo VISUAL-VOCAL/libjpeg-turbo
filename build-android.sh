@@ -1,11 +1,22 @@
 #!/bin/sh
 
+if [ -z ${ANDROID_HOME+x} ]; then
+  echo "Build aborted: ANDROID_HOME not set. You should export it set to the location where your Android NDKs are installed. \n   ... e.g. export ANDROID_HOME=\"\$HOME/Library/Android\""
+  exit 1
+fi
+
 SOURCE_DIRECTORY="$(dirname $0)"
 cd ${SOURCE_DIRECTORY}
 PWD=`pwd`
 SOURCE_DIRECTORY="${PWD}"
 NDK_PATH="${ANDROID_HOME}/android-ndk-r20"
 TOOLCHAIN="clang"
+
+if [ ! -d "$NDK_PATH" ]; then
+  echo "Build aborted: Could not find Android NDK installed at: $NDK_PATH"
+  echo "Did you install the correct NDK? Is your ANDROID_HOME set correctly?"
+  exit 1
+fi
 
 #
 # armeabi-v7a (32-bit)
