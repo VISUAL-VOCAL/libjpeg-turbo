@@ -4,18 +4,19 @@ SOURCE_DIRECTORY="$(dirname $0)"
 cd ${SOURCE_DIRECTORY}
 PWD=`pwd`
 SOURCE_DIRECTORY="${PWD}"
-
-BUILD_PLATFORM="linux-x86_64"
-NDK_PATH="${SOURCE_DIRECTORY}/../ndk/android-ndk-r20"
-SYSROOT="${TOOLCHAIN}/sysroot"
-TOOLCHAIN_VERSION="4.9"
-ANDROID_VERSION="28"
+NDK_PATH="${ANDROID_HOME}/android-ndk-r20"
+TOOLCHAIN="clang"
 
 #
-# ARMv7 (32-bit)
+# armeabi-v7a (32-bit)
 #
+echo ""
+echo "Building armeabi-v7a ..."
+echo ""
+
+# Current minimum required version for Vv app is 19 aka KitKat:
+ANDROID_VERSION="19"
 BUILD_DIRECTORY="${SOURCE_DIRECTORY}/build/android/armeabi-v7a"
-TOOLCHAIN="${SOURCE_DIRECTORY}/../ndk/toolchains/r20-arm-28"
 
 mkdir -p ${BUILD_DIRECTORY}
 cd ${BUILD_DIRECTORY}
@@ -30,15 +31,21 @@ cmake -G"Unix Makefiles" \
   -DENABLE_STATIC=TRUE -DENABLE_SHARED=FALSE \
   -DWITH_SIMD=TRUE \
   ${SOURCE_DIRECTORY}
-cmake --build .
 cmake --build . --target install/strip
 
+echo ""
+echo "Build completed for armeabi-v7a!"
 
 #
-# ARMv8 (64-bit)
+# arm64-v8a (64-bit)
 #
+echo ""
+echo "Building arm64-v8a ..."
+echo ""
+
+# Minimum required Android version than can run on 64bit hardware is 21 aka Lollipop --  older hardware will never see this binary.
+ANDROID_VERSION="21"
 BUILD_DIRECTORY="${SOURCE_DIRECTORY}/build/android/arm64-v8a"
-TOOLCHAIN="${SOURCE_DIRECTORY}/../ndk/toolchains/r20-arm64-28"
 
 mkdir -p ${BUILD_DIRECTORY}
 cd ${BUILD_DIRECTORY}
@@ -53,5 +60,7 @@ cmake -G"Unix Makefiles" \
   -DENABLE_STATIC=TRUE -DENABLE_SHARED=FALSE \
   -DWITH_SIMD=TRUE \
   ${SOURCE_DIRECTORY}
-cmake --build .
 cmake --build . --target install/strip
+
+echo ""
+echo "Build completed for arm64-v8a!"
